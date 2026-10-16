@@ -1,0 +1,326 @@
+
+/* ==========================================
+   GLOBAL STYLES
+   ========================================== */
+
+:root {
+  font-family: Inter, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  color: #1c2940;
+  background: #f5f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 36px 28px 50px;
+}
+
+/* ==========================================
+   PAGE HEADER
+   ========================================== */
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  font-weight: 800;
+  color: #4c6ca7;
+}
+
+h1 {
+  font-size: clamp(28px, 4vw, 42px);
+  margin: 9px 0;
+}
+
+.subtitle {
+  color: #64748b;
+  margin: 0 0 30px;
+}
+
+/* ==========================================
+   LEVEL SELECTION BUTTONS
+   ========================================== */
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.tabs button {
+  border: 1px solid #d7dfeb;
+  background: white;
+  border-radius: 9px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+  color: #40516b;
+}
+
+.tabs button.active {
+  background: #233e70;
+  color: white;
+  border-color: #233e70;
+}
+
+.tabs button:hover:not(.active) {
+  background: #edf2f9;
+}
+
+/* ==========================================
+   VISUALIZATION PANEL
+   ========================================== */
+
+.panel {
+  background: white;
+  border: 1px solid #e1e7f0;
+  border-radius: 14px;
+  padding: 26px;
+  box-shadow: 0 8px 30px #24324d0b;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.panel h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.panel-header p {
+  color: #64748b;
+  margin: 0 0 16px;
+  font-size: 14px;
+}
+
+/* ==========================================
+   TEMPERATURE CONTROLS
+   ========================================== */
+
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+select {
+  border: 1px solid #cbd5e1;
+  padding: 9px;
+  border-radius: 7px;
+  background: white;
+  color: #1c2940;
+}
+
+/* ==========================================
+   SVG CHART CONTAINER
+   ========================================== */
+
+#chart {
+  overflow-x: auto;
+  padding-top: 8px;
+}
+
+#chart svg {
+  display: block;
+  max-width: none;
+  overflow: visible;
+}
+
+/* ==========================================
+   AXES AND LABELS
+   ========================================== */
+
+.axis-label {
+  font-size: 11px;
+  fill: #475569;
+}
+
+.axis-title {
+  font-size: 12px;
+  font-weight: 700;
+  fill: #34425b;
+}
+
+/* ==========================================
+   LEVEL 1: MONTHLY HEATMAP
+   ========================================== */
+
+.heat-cell {
+  stroke: white;
+  stroke-width: 1;
+  cursor: crosshair;
+  transition: stroke-width 0.1s ease;
+}
+
+.heat-cell:hover {
+  stroke: #17233a;
+  stroke-width: 2;
+}
+
+/* ==========================================
+   LEVEL 2: DAILY TEMPERATURE CHARTS
+   ========================================== */
+
+/*
+ * IMPORTANT:
+ * Do not set fill here.
+ *
+ * The temperature background is calculated
+ * dynamically in dailyCharts.js using D3.
+ *
+ * Setting fill in CSS would override the
+ * temperature-based colors.
+ */
+.mini-cell {
+  stroke: white;
+  stroke-width: 1;
+}
+
+/*
+ * Miniature line charts show daily variations.
+ * Green represents maximum temperatures.
+ * Cyan represents minimum temperatures.
+ *
+ * Line colors are configured in config.js.
+ */
+.mini-line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+/* Transparent interaction area for tooltips. */
+.mini-hitbox {
+  cursor: crosshair;
+}
+
+/* Optional subtle highlight when hovering. */
+.month-chart:hover .mini-cell {
+  stroke: #17233a;
+  stroke-width: 1.5;
+}
+
+.mini-axis {
+  stroke: #d6deeb;
+  stroke-width: 0.65;
+  pointer-events: none;
+}
+
+/* ==========================================
+   LEGENDS
+   ========================================== */
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0 0;
+  color: #475569;
+  font-size: 12px;
+}
+
+.legend-gradient {
+  width: 230px;
+  height: 13px;
+  border-radius: 4px;
+  border: 1px solid #dbe1e9;
+}
+
+.legend-line {
+  display: inline-block;
+  width: 28px;
+  height: 3px;
+  vertical-align: middle;
+  margin: 0 7px 0 12px;
+}
+
+/* SVG legend labels */
+.legend-label {
+  font-size: 11px;
+  fill: #34425b;
+}
+
+/* ==========================================
+   INTERACTIVE TOOLTIPS
+   ========================================== */
+
+.tooltip {
+  position: fixed;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+
+  background: #17243b;
+  color: white;
+
+  border-radius: 8px;
+  padding: 11px 13px;
+
+  font-size: 12px;
+  line-height: 1.65;
+
+  box-shadow: 0 8px 25px #0003;
+  max-width: 250px;
+}
+
+.tooltip strong {
+  font-size: 13px;
+}
+
+/* ==========================================
+   FOOTER
+   ========================================== */
+
+.footnote,
+footer {
+  font-size: 12px;
+  color: #7b879a;
+  margin-top: 18px;
+}
+
+/* ==========================================
+   RESPONSIVE LAYOUT
+   ========================================== */
+
+@media (max-width: 700px) {
+  main {
+    padding: 20px 12px;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  .legend-gradient {
+    width: 150px;
+  }
+
+  .panel-header {
+    align-items: flex-start;
+  }
+}
+
+#level1Controls[hidden] {
+  display: none !important;
+}

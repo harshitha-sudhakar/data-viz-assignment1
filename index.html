@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hong Kong Temperature - Data Visualization</title>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <main>
+
+        <!-- Page Header -->
+        <header>
+            <p class="eyebrow">
+                DATA VISUALIZATION - ASSIGNMENT 1
+            </p>
+
+            <h1>HK Temperature Heatmap</h1>
+
+            <p class="subtitle">
+                Monthly and daily temperature patterns from 1997 - 2017.
+            </p>
+        </header>
+
+        <!-- Level Navigation -->
+        <nav class="tabs" aria-label="Visualization level">
+            <button
+                id="level1Tab"
+                class="active"
+                type="button"
+            >
+                L1: Monthly heatmap
+            </button>
+
+            <button
+                id="level2Tab"
+                type="button"
+            >
+                L2: Daily variations
+            </button>
+        </nav>
+
+        <!-- Visualization Panel -->
+        <section class="panel">
+
+            <!-- Chart Header and Controls -->
+            <div class="panel-header">
+
+                <div>
+                    <h2 id="chartTitle">
+                        Monthly temperature heatmap
+                    </h2>
+
+                    <p id="chartDescription">
+                        Each cell shows the monthly temperature.
+                    </p>
+                </div>
+
+                <!-- Only visible in Level 1 -->
+                <div id="level1Controls" class="controls">
+                    <label for="metric">
+                        Temperature:
+                    </label>
+
+                    <select id="metric">
+                        <option value="max">
+                            Monthly maximum
+                        </option>
+
+                        <option value="min">
+                            Monthly minimum
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- D3 Visualization -->
+            <div
+                id="chart"
+                role="img"
+                aria-label="Hong Kong temperature visualization"
+            ></div>
+
+            <!-- Temperature and Line Legends -->
+            <div id="legend" class="legend"></div>
+
+            <!-- Dataset Information -->
+            <p class="footnote" id="chartNote"></p>
+
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            Source: temperature_daily.csv
+            · Temperatures in °C
+        </footer>
+
+    </main>
+
+    <!-- Interactive Tooltip -->
+    <div
+        id="tooltip"
+        class="tooltip"
+        role="status"
+    ></div>
+
+    <!-- D3.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+
+    <!-- Main Application -->
+    <script type="module" src="js/main.js"></script>
+
+</body>
+</html>
