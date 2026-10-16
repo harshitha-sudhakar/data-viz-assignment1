@@ -1,6 +1,6 @@
 # HK Temperature Visualization
 
-Harshitha Sudakar – Data Visualization Assignment 1
+Harshitha Sudhakar – Data Visualization Assignment 1
 
 ## Components
 
